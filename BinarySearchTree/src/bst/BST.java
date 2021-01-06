@@ -31,6 +31,7 @@ public class BST<E extends Comparable<E>> {
 		return size; 
 	}
 	
+	
 	/**
 	 * Returns whether or not the specified data is contained in the tree.
 	 * @param data Data to search for
@@ -95,6 +96,57 @@ public class BST<E extends Comparable<E>> {
 			} 
 		}
 		return node;
+	}
+
+	/**
+	 * Finds and returns the minimum element in the BST.
+	 * @return Minimum element
+	 * @throws IllegalArgumentException if called with no elements in tree
+	 */
+	public E getMin() {
+		if (size == 0) {
+			throw new IllegalArgumentException("No elements in tree.");
+		}
+		return getMin(root);
+	}
+	
+	/**
+	 * Helper method that recursively searches for minimum element. 
+	 * @param node Node to begin search with
+	 * @return E minimum element
+	 */
+	private E getMin(Node node) {
+		if (node.left == null) { // Base case 
+			return node.data;
+		} else { // Recursive case 
+			return getMin(node.left);
+		}
+	}
+	
+	/**
+	 * Deletes the min element of the BST.
+	 * @throws IllegalArgumentException if there are no elements in the tree
+	 */
+	public void deleteMin() {
+		if (size == 0) {
+			throw new IllegalArgumentException("No elements in tree.");
+		}
+		root = deleteMin(root);
+		size--;
+	}
+	
+	/**
+	 * Helper method that recursively searches for min to delete. 
+	 * @param node Node to search with 
+	 * @return updated node reference 
+	 */
+	private Node deleteMin(Node node) {
+		if (node.left == null) { // Base case
+			return node.right;
+		} else { // Recursive case 
+			node.left = deleteMin(node.left);
+			return node;
+		}
 	}
 
 	/**
