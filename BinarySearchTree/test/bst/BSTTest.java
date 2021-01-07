@@ -106,5 +106,41 @@ public class BSTTest {
 		assertFalse(bst.contains(25));
 		assertEquals(0, bst.size());
 	}
+	
+	/**
+	 * Tests delete(data) method.
+	 */
+	@Test
+	public void testDelete() {
+		// create and setup bst
+		BST<Integer> bst = new BST<>();
+		assertEquals(0, bst.size());
+		bst.add(20);
+		bst.add(10);
+		bst.add(11);
+		bst.add(25);
+		bst.add(5);
+		assertEquals(5, bst.size());
+		
+		// test deleting node with no children
+		bst.delete(5);
+		assertEquals(4, bst.size());
+		assertFalse(bst.contains(5));
+		assertTrue(10 == bst.getMin());
+		
+		// test deleting node with one child
+		bst.delete(10);
+		assertEquals(3, bst.size());
+		assertFalse(bst.contains(10));
+		assertTrue(11 == bst.getMin());
+		
+		// test deleting node with two children
+		bst.delete(20);
+		assertEquals(2, bst.size());
+		assertFalse(bst.contains(20));
+		assertTrue(11 == bst.getMin());
+		
+	}
+	
 
 }

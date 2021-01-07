@@ -1,6 +1,6 @@
 package bst;
 
-
+import java.util.NoSuchElementException;
 
 /**
  * Binary Search Tree. (Unbalanced implementation). 
@@ -145,6 +145,48 @@ public class BST<E extends Comparable<E>> {
 			return node.right;
 		} else { // Recursive case 
 			node.left = deleteMin(node.left);
+			return node;
+		}
+	}
+	
+	/**
+	 * Deletes the specified data.
+	 * @param data Data to delete
+	 * @throws NoSuchElementException if data does not exist
+	 */
+	public void delete(E data) {
+		if (!contains(data)) {
+			throw new NoSuchElementException("There is no such element in tree.");
+		}
+		root = delete(root, data);
+		size--;
+	}
+	
+	/**
+	 * Utilizes Hibbard deletion to delete the specified data.
+	 * @param node Node to search with
+	 * @param data Data to search with
+	 * @return new Node reference
+	 */
+	private Node delete(Node node, E data) {
+		if (data.compareTo(node.data) == 0) { // Base case 
+			if (node.right == null && node.left == null) { // No children
+				return null;
+			} else if (node.right == null) { // One left child
+				return node.left;
+			} else if (node.left == null) { // One right child
+				return node.right;
+			} else { // Two children
+				E temp = getMin(node.right);
+				node.data = temp;
+				node.right = deleteMin(node.right);
+				return node;
+			}
+		} else if (data.compareTo(node.data) < 0) { // Recursive Case
+			node.left = delete(node.left, data);
+			return node;
+		} else { // data greater than node data (Also Recursive Case) 
+			node.right = delete(node.right, data);
 			return node;
 		}
 	}
