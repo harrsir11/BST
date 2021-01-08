@@ -89,7 +89,7 @@ public class BST<E extends Comparable<E>> {
 			size++;
 			return new Node(data);
 		} else { // Recursive case 
-			if (data.compareTo(node.data) <= 0) {
+			if (data.compareTo(node.data) < 0) {
 				node.left = add(node.left, data);
 			} else { // greater than 0 
 				node.right = add(node.right, data);

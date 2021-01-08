@@ -14,7 +14,7 @@ public class BSTTest {
 	 * Tests add method with integers. 
 	 */
 	@Test
-	public void testAddAndGet() {
+	public void testAddAndContains() {
 		// Create empty BST
 		BST<Integer> bst = new BST<>();
 		assertEquals(0, bst.size());
